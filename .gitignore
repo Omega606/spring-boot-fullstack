@@ -3,5 +3,6 @@
 **/node_modules
 **/.DS_Store
 **/.mvn/
+**/*.iml
 /mvnw
 /mvnw.cmd
