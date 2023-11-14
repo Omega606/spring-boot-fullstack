@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "skynet-api",
-      "image": "omega606/skynet-api:latest",
+      "image": "omega606/skynet-api:14.11.2023.13.08.19",
       "essential": true,
       "memory": 512,
       "portMappings": [
