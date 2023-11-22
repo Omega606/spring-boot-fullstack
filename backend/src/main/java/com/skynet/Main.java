@@ -4,12 +4,12 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
 import com.skynet.customer.Customer;
 import com.skynet.customer.CustomerRepository;
+import com.skynet.customer.Gender;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.List;
 import java.util.Random;
 
 @SpringBootApplication
@@ -37,11 +37,13 @@ public class Main {
             Random random = new Random();
             String firstName = name.firstName();
             String lastName = name.lastName();
+            int age = random.nextInt(16, 99);
+            Gender gender = age % 2 == 0 ? Gender.Male : Gender.Female;
 
             Customer customer = new Customer(
                     firstName +" "+ lastName,
                     firstName.toLowerCase()+"."+ lastName.toLowerCase()+"@skynet.com",
-                    random.nextInt(16,99));
+                    age, gender);
 
             customerRepository.save(customer);
         };
