@@ -10,6 +10,7 @@ on:
 
 jobs:
   deploy:
+    if: yes
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -42,7 +43,7 @@ jobs:
           REPO=skynet-react \
           TAG=${{ steps.build-number.outputs.BUILD_NUMBER }} \
           ../../.ci/build-publish.sh . \
-            --build-arg api_base_url=http://skynet-api-env-1.eba-pdts7k93.us-east-1.elasticbeanstalk.com:8080
+            --build-arg api_base_url=${{ secrets.EB_ENVIRONMENT_URL }}:8080
       - name: Send Slack Message
         run: >
           curl -X POST -H 'Content-type: application/json' 
@@ -87,7 +88,7 @@ jobs:
       - name: Send Slack Message
         run: >
           curl -X POST -H 'Content-type: application/json' 
-          --data '{"text":"Deployment and commit completed :github-check-mark: :party_blob: - http://skynet-api-env-1.eba-pdts7k93.us-east-1.elasticbeanstalk.com/"}' 
+          --data '{"text":"Deployment and commit completed :github-check-mark: :party_blob: - ${{ secrets.EB_ENVIRONMENT_URL }}"}' 
           ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Send Slack Message
         if: always()
