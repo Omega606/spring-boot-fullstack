@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    if: yes
+    if: true
     runs-on: ubuntu-latest
     defaults:
       run:
