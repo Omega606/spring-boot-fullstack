@@ -15,7 +15,7 @@
     },
     {
       "name": "skynet-api",
-      "image": "omega606/skynet-api:28.11.2023.19.28.29",
+      "image": "omega606/skynet-api:13.12.2023.05.03.49",
       "essential": true,
       "memory": 512,
       "portMappings": [
