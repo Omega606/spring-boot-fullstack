@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    if: true
+    if: true # true/false to enable or disable the deployment
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -88,7 +88,7 @@ jobs:
       - name: Send Slack Message
         run: >
           curl -X POST -H 'Content-type: application/json' 
-          --data '{"text":"Deployment and commit completed :github-check-mark: :party_blob: - ${{ secrets.EB_ENVIRONMENT_URL }}"}' 
+          --data '{"text":"Deployment and commit completed :github_check_mark: :party_blob: - ${{ secrets.EB_ENVIRONMENT_URL }}"}' 
           ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Send Slack Message
         if: always()
