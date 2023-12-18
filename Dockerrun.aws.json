@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "skynet-react",
-      "image": "omega606/skynet-react:29.11.2023.13.45.14",
+      "image": "omega606/skynet-react:18.12.2023.20.10.59",
       "essential": true,
       "memory": 256,
       "portMappings": [
