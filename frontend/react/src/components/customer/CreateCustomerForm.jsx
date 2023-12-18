@@ -108,7 +108,7 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                                 label="Email Address"
                                 name="email"
                                 type="email"
-                                placeholder="jane@formik.com"
+                                placeholder="jane@skynet.com"
                             />
 
                             <MyTextInput
