@@ -1,8 +1,8 @@
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import {Alert, AlertIcon, Box, Button, FormLabel, Input, Select, Stack} from "@chakra-ui/react";
-import {saveCustomer} from "../services/client.js";
-import {errorNotification, successNotification} from "../services/notification.js";
+import {saveCustomer} from "../../services/client.js";
+import {errorNotification, successNotification} from "../../services/notification.js";
 
 const MyTextInput = ({ label, ...props }) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -49,6 +49,7 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                     email: '',
                     age: 0,
                     gender: '',
+                    password: ''
                 }}
                 validationSchema={Yup.object({
                     name: Yup.string()
@@ -66,6 +67,10 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                             ['Male', 'Female'],
                             'Invalid Gender Type'
                         )
+                        .required('Required'),
+                    password: Yup.string()
+                        .min(4, 'Must be 4 characters or more')
+                        .max(15, 'Must be 15 characters or less')
                         .required('Required'),
                 })}
                 onSubmit={(customer, { setSubmitting }) => {
@@ -118,6 +123,13 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </MySelect>
+
+                            <MyTextInput
+                                label="Password"
+                                name="password"
+                                type="password"
+                                placeholder="Password"
+                            />
 
                             <Button isDisabled={!isValid || isSubmitting} type="submit">Submit</Button>
                         </Stack>

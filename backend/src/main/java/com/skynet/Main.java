@@ -41,15 +41,17 @@ public class Main {
             String lastName = name.lastName();
             int age = random.nextInt(16, 99);
             Gender gender = age % 2 == 0 ? Gender.Male : Gender.Female;
+            String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@skynet.com";
 
             Customer customer = new Customer(
                     firstName +" "+ lastName,
-                    firstName.toLowerCase()+"."+ lastName.toLowerCase()+"@skynet.com",
-                    passwordEncoder.encode(UUID.randomUUID().toString()),
+                    email,
+                    passwordEncoder.encode("password"),
                     age,
                     gender);
 
             customerRepository.save(customer);
+            System.out.println(email);
         };
     }
 }
