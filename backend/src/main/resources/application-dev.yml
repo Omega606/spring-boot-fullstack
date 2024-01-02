@@ -17,7 +17,7 @@ management:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/customer
+    url: jdbc:postgresql://awseb-e-5ex8mrnvmk-stack-awsebrdsdatabase-whyfboerb4fa.cuojv6x4pu5b.us-east-1.rds.amazonaws.com:5432/customer
     username: skynet
     password: 12345678
   jpa:
