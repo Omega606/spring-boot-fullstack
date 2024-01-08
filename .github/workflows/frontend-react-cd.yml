@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    if: true # true/false to enable or disable the deployment
+    if: false # true/false to enable or disable the deployment
     runs-on: ubuntu-latest
     defaults:
       run:
