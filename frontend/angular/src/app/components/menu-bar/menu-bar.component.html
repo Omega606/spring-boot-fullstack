@@ -1,0 +1,14 @@
+<h4 class="text-center mt-0">
+  Dashboard
+</h4>
+<div class="text-center mb-5">
+  <p-avatar
+    image="https://www.myconfinedspace.com/wp-content/uploads/2017/09/Skynet-Logo.png"
+    styleClass="mr-2"
+    size="xlarge"
+    shape="circle"
+  ></p-avatar>
+</div>
+<div>
+  <app-menu-item *ngFor="let item of menu" [menuItem] = "item"></app-menu-item>
+</div>
