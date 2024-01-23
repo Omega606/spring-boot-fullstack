@@ -3,7 +3,7 @@
     <div class="m-auto">
       <div class="text-center">
         <p-avatar
-          image="https://user-images.githubusercontent.com/40702606/210880158-e7d698c2-b19a-4057-b415-09f48a746753.png"
+          image="https://upload.wikimedia.org/wikipedia/commons/4/4d/Skynet_Terminator_logo.png"
           styleClass="mr-2"
           size="xlarge"
           shape="circle"
@@ -22,7 +22,7 @@
           [(ngModel)]="authenticationRequest.username"
           id="email"
           pInputText
-          placeholder="Jane@amigoscode.com"
+          placeholder="tom@skynet.com"
           type="email"
           class="w-full"
         >
@@ -48,6 +48,7 @@
         pButton
         label="Don't have an account? Signup now."
         class="w-full p-button-link text-left pl-0"
+        (click)="register()"
       ></button>
     </div>
   </div>

@@ -38,7 +38,7 @@ export class HeaderBarComponent {
   ];
 
   get username(): string {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem('user_access_token');
     if (storedUser) {
       const authResponse: AuthenticationResponse = JSON.parse(storedUser);
       if (authResponse && authResponse.customerDTO && authResponse.customerDTO.username) {
@@ -49,7 +49,7 @@ export class HeaderBarComponent {
   }
 
   get userRole(): string {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem('user_access_token');
     if (storedUser) {
       const authResponse: AuthenticationResponse = JSON.parse(storedUser);
       if (authResponse && authResponse.customerDTO && authResponse.customerDTO.roles) {
