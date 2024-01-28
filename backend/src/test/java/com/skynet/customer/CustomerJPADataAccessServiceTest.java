@@ -71,7 +71,7 @@ class CustomerJPADataAccessServiceTest {
     void existsPersonWithEmail() {
         String email = "test@email.com";
 
-        underTest.existsPersonWithEmail(email);
+        underTest.existsCustomerWithEmail(email);
 
         verify(customerRepository).existsCustomerByEmail(email);
     }
@@ -80,7 +80,7 @@ class CustomerJPADataAccessServiceTest {
     void existsPersonWithId() {
         int id = 1;
 
-        underTest.existsPersonWithId(id);
+        underTest.existsCustomerById(id);
 
         verify(customerRepository).existsCustomerById(id);
     }
@@ -101,5 +101,18 @@ class CustomerJPADataAccessServiceTest {
         underTest.updateCustomer(customer);
 
         verify(customerRepository).save(customer);
+    }
+
+    @Test
+    void canUpdateProfileImageId() {
+        // Given
+        String profileImageId = "2222";
+        Integer customerId = 1;
+
+        // When
+        underTest.updateCustomerProfileImageId(profileImageId, customerId);
+
+        // Then
+        verify(customerRepository).updateProfileImageId(profileImageId, customerId);
     }
 }

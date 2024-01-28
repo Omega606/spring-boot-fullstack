@@ -5,6 +5,8 @@ import com.github.javafaker.Name;
 import com.skynet.customer.Customer;
 import com.skynet.customer.CustomerRepository;
 import com.skynet.customer.Gender;
+import com.skynet.s3.S3Buckets;
+import com.skynet.s3.S3Service;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +23,7 @@ public class Main {
     }
 
     @Bean
-    CommandLineRunner runner(CustomerRepository customerRepository, PasswordEncoder passwordEncoder){
+    CommandLineRunner runner(CustomerRepository customerRepository, PasswordEncoder passwordEncoder, S3Service s3Service, S3Buckets s3Buckets){
 
         return args -> {
 
@@ -34,24 +36,45 @@ public class Main {
             customerRepository.saveAll(customers);
              */
 
-            var faker = new Faker();
-            Name name = faker.name();
-            Random random = new Random();
-            String firstName = name.firstName();
-            String lastName = name.lastName();
-            int age = random.nextInt(16, 99);
-            Gender gender = age % 2 == 0 ? Gender.Male : Gender.Female;
-            String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@skynet.com";
-
-            Customer customer = new Customer(
-                    firstName +" "+ lastName,
-                    email,
-                    passwordEncoder.encode("password"),
-                    age,
-                    gender);
-
-            customerRepository.save(customer);
-            System.out.println(email);
+            createRandomCustomer(customerRepository, passwordEncoder);
+            //testBucketUploadAndDownload(s3Service, s3Buckets);
         };
+    }
+
+    private static void testBucketUploadAndDownload(S3Service s3Service,
+                                                    S3Buckets s3Buckets) {
+        s3Service.putObject(
+                s3Buckets.getCustomer(),
+                "test/hello",
+                "Hello World".getBytes()
+        );
+
+        byte[] objectS3 = s3Service.getObject(
+                s3Buckets.getCustomer(),
+                "test/hello"
+        );
+
+        System.out.println("Hooray: " + new String(objectS3));
+    }
+
+    private static void createRandomCustomer(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
+        var faker = new Faker();
+        Name name = faker.name();
+        Random random = new Random();
+        String firstName = name.firstName();
+        String lastName = name.lastName();
+        int age = random.nextInt(16, 99);
+        Gender gender = age % 2 == 0 ? Gender.Male : Gender.Female;
+        String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@skynet.com";
+
+        Customer customer = new Customer(
+                firstName +" "+ lastName,
+                email,
+                passwordEncoder.encode("password"),
+                age,
+                gender);
+
+        customerRepository.save(customer);
+        System.out.println(email);
     }
 }

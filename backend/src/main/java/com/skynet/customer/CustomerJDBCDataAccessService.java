@@ -22,7 +22,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO{
     @Override
     public List<Customer> selectAllCustomers() {
         var sql = """
-                SELECT id, name, email, password, age, gender
+                SELECT id, name, email, password, age, gender, profile_image_id
                 FROM customer
                 LIMIT 100
                 """;
@@ -33,7 +33,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO{
     @Override
     public Optional<Customer> selectCustomerById(Integer id) {
         var sql = """
-                SELECT id, name, email, password, age, gender
+                SELECT id, name, email, password, age, gender, profile_image_id
                 FROM customer
                 WHERE id = ?
                 """;
@@ -62,7 +62,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO{
     }
 
     @Override
-    public boolean existsPersonWithEmail(String email) {
+    public boolean existsCustomerWithEmail(String email) {
         var sql = """
                 SELECT count(id)
                 FROM customer
@@ -74,7 +74,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO{
     }
 
     @Override
-    public boolean existsPersonWithId(Integer id) {
+    public boolean existsCustomerById(Integer id) {
         var sql = """
                 SELECT count(id)
                 FROM customer
@@ -137,7 +137,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO{
     @Override
     public Optional<Customer> selectUserByEmail(String email) {
         var sql = """
-                SELECT id, name, email, password, age, gender
+                SELECT id, name, email, password, age, gender, profile_image_id
                 FROM customer
                 WHERE email = ?
                 """;
@@ -145,5 +145,15 @@ public class CustomerJDBCDataAccessService implements CustomerDAO{
         return jdbcTemplate.query(sql, customerRowMapper, email)
                 .stream()
                 .findFirst();
+    }
+
+    @Override
+    public void updateCustomerProfileImageId(String profileImageId, Integer customerId) {
+        var sql = """
+                UPDATE customer
+                SET profile_image_id = ?
+                WHERE id = ?
+                """;
+        jdbcTemplate.update(sql, profileImageId, customerId);
     }
 }
